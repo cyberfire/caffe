@@ -234,6 +234,8 @@ int main(int argc, char** argv) {
     return 1;
   }
 
+  clock_t p0=clock();
+
   ::google::InitGoogleLogging(argv[0]);
 
   string model_file   = argv[1];
@@ -249,7 +251,11 @@ int main(int argc, char** argv) {
 
   cv::Mat img = cv::imread(file, -1);
   CHECK(!img.empty()) << "Unable to decode image " << file;
+
+  clock_t p1=clock();
   std::vector<Prediction> predictions = classifier.Classify(img);
+  clock_t p2=clock();
+
 
   /* Print the top N predictions. */
   for (size_t i = 0; i < predictions.size(); ++i) {
@@ -257,6 +263,13 @@ int main(int argc, char** argv) {
     std::cout << std::fixed << std::setprecision(4) << p.second << " - \""
               << p.first << "\"" << std::endl;
   }
+  clock_t p3=clock();
+
+  std::cout << "p0-p1 " << ((float)p1-p0)/CLOCKS_PER_SEC <<std::endl;
+  std::cout << "p1-p2 " << ((float)p2-p1)/CLOCKS_PER_SEC <<std::endl;
+  std::cout << "p3-p2 " << ((float)p3-p2)/CLOCKS_PER_SEC <<std::endl;
+  std::cout << "total " << ((float)p3-p0)/CLOCKS_PER_SEC <<std::endl;
+
 }
 #else
 int main(int argc, char** argv) {

@@ -59,6 +59,8 @@ if __name__ == '__main__':
     frontmatter = args.dirname[1]
     model_filename = os.path.join(dirname, frontmatter['caffemodel'])
 
+    print("hello1\n")
+
     # Closure-d function for checking SHA1.
     def model_checks_out(filename=model_filename, sha1=frontmatter['sha1']):
         with open(filename, 'rb') as f:
@@ -69,7 +71,9 @@ if __name__ == '__main__':
         print("Model already exists.")
         sys.exit(0)
 
-    # Download and verify model.
+    print("model_filename %s\n" % (model_filename))
+    print("url %s\n" % (frontmatter['caffemodel_url']))
+   # Download and verify model.
     urllib.request.urlretrieve(
         frontmatter['caffemodel_url'], model_filename, reporthook)
     if not model_checks_out():

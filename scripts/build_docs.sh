@@ -20,4 +20,4 @@ make docs
 
 # Display docs using web server.
 cd docs
-jekyll serve -w -s . -d _site --port=$PORT
+jekyll serve -w -s . -d _site --port=$PORT --host "0.0.0.0"
