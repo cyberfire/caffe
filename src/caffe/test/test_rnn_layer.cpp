@@ -102,11 +102,23 @@ TYPED_TEST(RNNLayerTest, TestForward) {
   LOG(INFO) << "Calling forward for full sequence RNN";
   layer->Forward(this->blob_bottom_vec_, this->blob_top_vec_);
 
+   return ;
   // Copy the inputs and outputs to reuse/check them later.
   Blob<Dtype> bottom_copy(this->blob_bottom_.shape());
   bottom_copy.CopyFrom(this->blob_bottom_);
   Blob<Dtype> top_copy(this->blob_top_.shape());
   top_copy.CopyFrom(this->blob_top_);
+
+  for(int i=0;i<this->blob_top_vec_.size();i++)
+   {
+      std::cout<<"top "<<i<<":"<<std::endl;
+      Blob<Dtype> * p_blob=this->blob_top_vec_[i];
+
+      for(int j=0;j<p_blob->num_axes();j++)
+        std::cout<<" "<<p_blob->shape(j);
+
+      std::cout<<std::endl;
+   }
 
   // Process the batch one timestep at a time;
   // check that we get the same result.
@@ -124,6 +136,18 @@ TYPED_TEST(RNNLayerTest, TestForward) {
       this->blob_bottom_cont_.mutable_cpu_data()[n] = t > 0;
     }
     LOG(INFO) << "Calling forward for RNN timestep " << t;
+
+  for(int i=0;i<this->blob_top_vec_.size();i++)
+   {
+      std::cout<<"top "<<i<<":"<<std::endl;
+      Blob<Dtype> * p_blob=this->blob_top_vec_[i];
+
+      for(int j=0;j<p_blob->num_axes();j++)
+        std::cout<<" "<<p_blob->shape(j);
+
+      std::cout<<std::endl;
+   }
+
     layer->Reshape(this->blob_bottom_vec_, this->blob_top_vec_);
     layer->Forward(this->blob_bottom_vec_, this->blob_top_vec_);
     for (int i = 0; i < top_count; ++i) {
@@ -162,6 +186,7 @@ TYPED_TEST(RNNLayerTest, TestForward) {
   }
 }
 
+#if 0
 TYPED_TEST(RNNLayerTest, TestGradient) {
   typedef typename TypeParam::Dtype Dtype;
   RNNLayer<Dtype> layer(this->layer_param_);
@@ -215,5 +240,6 @@ TYPED_TEST(RNNLayerTest, TestGradientNonZeroContBufferSize2WithStaticInput) {
   checker.CheckGradientExhaustive(&layer, this->blob_bottom_vec_,
       this->blob_top_vec_, 2);
 }
+#endif
 
 }  // namespace caffe

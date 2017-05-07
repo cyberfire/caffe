@@ -10,6 +10,18 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <iostream>
+
+#include <time.h>
+
+unsigned long get_cur_time(void)
+{
+   struct timespec tm;
+
+   clock_gettime(CLOCK_MONOTONIC_COARSE, &tm);
+
+   return (tm.tv_sec*1000+tm.tv_nsec/1000000);
+}
 
 #ifdef USE_OPENCV
 using namespace caffe;  // NOLINT(build/namespaces)
@@ -159,7 +171,13 @@ std::vector<float> Classifier::Predict(const cv::Mat& img) {
 
   Preprocess(img, &input_channels);
 
+  unsigned long tstart=get_cur_time();
+
   net_->Forward();
+
+  unsigned long tend=get_cur_time();
+
+  std::cout<<"used time: "<<tend-tstart<<std::endl;
 
   /* Copy the output layer to a std::vector */
   Blob<float>* output_layer = net_->output_blobs()[0];
