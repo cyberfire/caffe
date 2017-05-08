@@ -1,0 +1,366 @@
+Note: Google Test filter = *RNN*-*GPU*
+[==========] Running 4 tests from 2 test cases.
+[----------] Global test environment set-up.
+[----------] 2 tests from RNNLayerTest/0, where TypeParam = caffe::CPUDevice<float>
+[ RUN      ] RNNLayerTest/0.TestSetUp
+[       OK ] RNNLayerTest/0.TestSetUp (14 ms)
+[ RUN      ] RNNLayerTest/0.TestForward
+
+
+--------------------------------
+Layer type:  name:
+
+
+--------------------------------
+Layer type: Input name:
+top x: 3 3 3 2 
+top cont: 3 3 
+
+
+--------------------------------
+Layer type: Input name:
+top h_0: 1 3 7 
+
+
+--------------------------------
+Layer type: Slice name:cont_slice
+bottom cont: 3 3 
+top cont_1: 1 3 
+top cont_2: 1 3 
+top cont_3: 1 3 
+
+
+--------------------------------
+Layer type: InnerProduct name:x_transform
+bottom x: 3 3 3 2 
+top W_xh_x: 3 3 7 
+
+
+--------------------------------
+Layer type: Slice name:W_xh_x_slice
+bottom W_xh_x: 3 3 7 
+top W_xh_x_1: 1 3 7 
+top W_xh_x_2: 1 3 7 
+top W_xh_x_3: 1 3 7 
+
+
+--------------------------------
+Layer type: Scale name:h_conted_0
+bottom h_0: 1 3 7 
+bottom cont_1: 1 3 
+top h_conted_0: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_hh_h_0
+bottom h_conted_0: 1 3 7 
+top W_hh_h_0: 1 3 7 
+
+
+--------------------------------
+Layer type: Eltwise name:h_input_sum_1
+bottom W_hh_h_0: 1 3 7 
+bottom W_xh_x_1: 1 3 7 
+top h_neuron_input_1: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:h_neuron_1
+bottom h_neuron_input_1: 1 3 7 
+top h_1: 1 3 7 
+
+
+--------------------------------
+Layer type: Split name:h_1_h_neuron_1_0_split
+bottom h_1: 1 3 7 
+top h_1_h_neuron_1_0_split_0: 1 3 7 
+top h_1_h_neuron_1_0_split_1: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_ho_h_1
+bottom h_1_h_neuron_1_0_split_0: 1 3 7 
+top W_ho_h_1: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:o_neuron_1
+bottom W_ho_h_1: 1 3 7 
+top o_1: 1 3 7 
+
+
+--------------------------------
+Layer type: Scale name:h_conted_1
+bottom h_1_h_neuron_1_0_split_1: 1 3 7 
+bottom cont_2: 1 3 
+top h_conted_1: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_hh_h_1
+bottom h_conted_1: 1 3 7 
+top W_hh_h_1: 1 3 7 
+
+
+--------------------------------
+Layer type: Eltwise name:h_input_sum_2
+bottom W_hh_h_1: 1 3 7 
+bottom W_xh_x_2: 1 3 7 
+top h_neuron_input_2: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:h_neuron_2
+bottom h_neuron_input_2: 1 3 7 
+top h_2: 1 3 7 
+
+
+--------------------------------
+Layer type: Split name:h_2_h_neuron_2_0_split
+bottom h_2: 1 3 7 
+top h_2_h_neuron_2_0_split_0: 1 3 7 
+top h_2_h_neuron_2_0_split_1: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_ho_h_2
+bottom h_2_h_neuron_2_0_split_0: 1 3 7 
+top W_ho_h_2: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:o_neuron_2
+bottom W_ho_h_2: 1 3 7 
+top o_2: 1 3 7 
+
+
+--------------------------------
+Layer type: Scale name:h_conted_2
+bottom h_2_h_neuron_2_0_split_1: 1 3 7 
+bottom cont_3: 1 3 
+top h_conted_2: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_hh_h_2
+bottom h_conted_2: 1 3 7 
+top W_hh_h_2: 1 3 7 
+
+
+--------------------------------
+Layer type: Eltwise name:h_input_sum_3
+bottom W_hh_h_2: 1 3 7 
+bottom W_xh_x_3: 1 3 7 
+top h_neuron_input_3: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:h_neuron_3
+bottom h_neuron_input_3: 1 3 7 
+top h_3: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_ho_h_3
+bottom h_3: 1 3 7 
+top W_ho_h_3: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:o_neuron_3
+bottom W_ho_h_3: 1 3 7 
+top o_3: 1 3 7 
+
+
+--------------------------------
+Layer type: Concat name:o_concat
+bottom o_1: 1 3 7 
+bottom o_2: 1 3 7 
+bottom o_3: 1 3 7 
+top o: 3 3 7 
+[       OK ] RNNLayerTest/0.TestForward (9 ms)
+[----------] 2 tests from RNNLayerTest/0 (23 ms total)
+
+[----------] 2 tests from RNNLayerTest/1, where TypeParam = caffe::CPUDevice<double>
+[ RUN      ] RNNLayerTest/1.TestSetUp
+[       OK ] RNNLayerTest/1.TestSetUp (5 ms)
+[ RUN      ] RNNLayerTest/1.TestForward
+
+
+--------------------------------
+Layer type:  name:
+
+
+--------------------------------
+Layer type: Input name:
+top x: 3 3 3 2 
+top cont: 3 3 
+
+
+--------------------------------
+Layer type: Input name:
+top h_0: 1 3 7 
+
+
+--------------------------------
+Layer type: Slice name:cont_slice
+bottom cont: 3 3 
+top cont_1: 1 3 
+top cont_2: 1 3 
+top cont_3: 1 3 
+
+
+--------------------------------
+Layer type: InnerProduct name:x_transform
+bottom x: 3 3 3 2 
+top W_xh_x: 3 3 7 
+
+
+--------------------------------
+Layer type: Slice name:W_xh_x_slice
+bottom W_xh_x: 3 3 7 
+top W_xh_x_1: 1 3 7 
+top W_xh_x_2: 1 3 7 
+top W_xh_x_3: 1 3 7 
+
+
+--------------------------------
+Layer type: Scale name:h_conted_0
+bottom h_0: 1 3 7 
+bottom cont_1: 1 3 
+top h_conted_0: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_hh_h_0
+bottom h_conted_0: 1 3 7 
+top W_hh_h_0: 1 3 7 
+
+
+--------------------------------
+Layer type: Eltwise name:h_input_sum_1
+bottom W_hh_h_0: 1 3 7 
+bottom W_xh_x_1: 1 3 7 
+top h_neuron_input_1: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:h_neuron_1
+bottom h_neuron_input_1: 1 3 7 
+top h_1: 1 3 7 
+
+
+--------------------------------
+Layer type: Split name:h_1_h_neuron_1_0_split
+bottom h_1: 1 3 7 
+top h_1_h_neuron_1_0_split_0: 1 3 7 
+top h_1_h_neuron_1_0_split_1: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_ho_h_1
+bottom h_1_h_neuron_1_0_split_0: 1 3 7 
+top W_ho_h_1: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:o_neuron_1
+bottom W_ho_h_1: 1 3 7 
+top o_1: 1 3 7 
+
+
+--------------------------------
+Layer type: Scale name:h_conted_1
+bottom h_1_h_neuron_1_0_split_1: 1 3 7 
+bottom cont_2: 1 3 
+top h_conted_1: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_hh_h_1
+bottom h_conted_1: 1 3 7 
+top W_hh_h_1: 1 3 7 
+
+
+--------------------------------
+Layer type: Eltwise name:h_input_sum_2
+bottom W_hh_h_1: 1 3 7 
+bottom W_xh_x_2: 1 3 7 
+top h_neuron_input_2: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:h_neuron_2
+bottom h_neuron_input_2: 1 3 7 
+top h_2: 1 3 7 
+
+
+--------------------------------
+Layer type: Split name:h_2_h_neuron_2_0_split
+bottom h_2: 1 3 7 
+top h_2_h_neuron_2_0_split_0: 1 3 7 
+top h_2_h_neuron_2_0_split_1: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_ho_h_2
+bottom h_2_h_neuron_2_0_split_0: 1 3 7 
+top W_ho_h_2: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:o_neuron_2
+bottom W_ho_h_2: 1 3 7 
+top o_2: 1 3 7 
+
+
+--------------------------------
+Layer type: Scale name:h_conted_2
+bottom h_2_h_neuron_2_0_split_1: 1 3 7 
+bottom cont_3: 1 3 
+top h_conted_2: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_hh_h_2
+bottom h_conted_2: 1 3 7 
+top W_hh_h_2: 1 3 7 
+
+
+--------------------------------
+Layer type: Eltwise name:h_input_sum_3
+bottom W_hh_h_2: 1 3 7 
+bottom W_xh_x_3: 1 3 7 
+top h_neuron_input_3: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:h_neuron_3
+bottom h_neuron_input_3: 1 3 7 
+top h_3: 1 3 7 
+
+
+--------------------------------
+Layer type: InnerProduct name:W_ho_h_3
+bottom h_3: 1 3 7 
+top W_ho_h_3: 1 3 7 
+
+
+--------------------------------
+Layer type: TanH name:o_neuron_3
+bottom W_ho_h_3: 1 3 7 
+top o_3: 1 3 7 
+
+
+--------------------------------
+Layer type: Concat name:o_concat
+bottom o_1: 1 3 7 
+bottom o_2: 1 3 7 
+bottom o_3: 1 3 7 
+top o: 3 3 7 
+[       OK ] RNNLayerTest/1.TestForward (9 ms)
+[----------] 2 tests from RNNLayerTest/1 (14 ms total)
+
+[----------] Global test environment tear-down
+[==========] 4 tests from 2 test cases ran. (37 ms total)
+[  PASSED  ] 4 tests.
